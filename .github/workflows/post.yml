@@ -1,0 +1,64 @@
+# Ежедневная публикация земельной новости в Telegram-канал.
+name: Земельные новости
+
+on:
+  schedule:
+    # Время в UTC! 07:00 UTC = 10:00 по Москве.
+    - cron: "0 7 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: land-news
+  cancel-in-progress: false
+
+env:
+  LLM_PROVIDER: ${{ vars.LLM_PROVIDER || 'ollama' }}
+  LLM_MODEL: ${{ vars.LLM_MODEL || 'qwen3:8b' }}
+  SIGNATURE: ${{ vars.SIGNATURE }}
+  LOOKBACK_HOURS: ${{ vars.LOOKBACK_HOURS || '48' }}
+  TIMEZONE: Europe/Moscow
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Установка зависимостей
+        run: pip install -r requirements.txt
+
+      - name: Запуск нейросети Qwen (Ollama)
+        if: env.LLM_PROVIDER == 'ollama'
+        run: |
+          curl -fsSL https://ollama.com/install.sh | sh
+          (ollama serve > /tmp/ollama.log 2>&1 &)
+          for i in $(seq 1 30); do curl -s localhost:11434 >/dev/null && break; sleep 2; done
+          ollama pull "$LLM_MODEL"
+
+      - name: Публикация поста
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+          ADMIN_ID: ${{ secrets.ADMIN_ID }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python bot.py --once
+
+      - name: Сохранение истории
+        if: always()
+        run: |
+          [ -f news.db ] || exit 0
+          git config user.name "land-news-bot"
+          git config user.email "land-news-bot@users.noreply.github.com"
+          git add news.db
+          git diff --cached --quiet || git commit -m "История публикаций $(date -u +%F)"
+          git push || (git pull --rebase && git push)
