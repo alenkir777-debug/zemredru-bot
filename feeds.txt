@@ -1,0 +1,14 @@
+# Ленты-источники новостей (по одной ссылке в строке, # — комментарий).
+# Ссылки на них в канал НЕ попадают: бот берёт только факты и пишет пост своими словами.
+# Можно добавлять любые RSS-ленты: региональные СМИ, сайты госорганов и т.п.
+
+# Обзоры нового федерального законодательства
+https://www.consultant.ru/rss/fd.xml
+
+# Поиск новостей Google по темам (язык — русский, регион — Россия)
+https://news.google.com/rss/search?q=%D0%B7%D0%B5%D0%BC%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9+%D0%BA%D0%BE%D0%B4%D0%B5%D0%BA%D1%81+%D0%B7%D0%B0%D0%BA%D0%BE%D0%BD&hl=ru&gl=RU&ceid=RU:ru
+https://news.google.com/rss/search?q=%D0%B7%D0%B5%D0%BC%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5+%D1%83%D1%87%D0%B0%D1%81%D1%82%D0%BA%D0%B8+%D0%B7%D0%B0%D0%BA%D0%BE%D0%BD%D0%BE%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82&hl=ru&gl=RU&ceid=RU:ru
+https://news.google.com/rss/search?q=%D1%80%D1%8B%D0%BD%D0%BE%D0%BA+%D0%B7%D0%B5%D0%BC%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D1%85+%D1%83%D1%87%D0%B0%D1%81%D1%82%D0%BA%D0%BE%D0%B2&hl=ru&gl=RU&ceid=RU:ru
+https://news.google.com/rss/search?q=%D1%86%D0%B5%D0%BD%D1%8B+%D0%BD%D0%B0+%D1%83%D1%87%D0%B0%D1%81%D1%82%D0%BA%D0%B8+%D0%98%D0%96%D0%A1&hl=ru&gl=RU&ceid=RU:ru
+https://news.google.com/rss/search?q=%D0%A0%D0%BE%D1%81%D1%80%D0%B5%D0%B5%D1%81%D1%82%D1%80+%D0%B7%D0%B5%D0%BC%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9+%D1%83%D1%87%D0%B0%D1%81%D1%82%D0%BE%D0%BA&hl=ru&gl=RU&ceid=RU:ru
+https://news.google.com/rss/search?q=%D0%A1%D0%9D%D0%A2+%D1%81%D0%B0%D0%B4%D0%BE%D0%B2%D0%BE%D0%B4%D1%8B+%D0%B7%D0%B0%D0%BA%D0%BE%D0%BD&hl=ru&gl=RU&ceid=RU:ru
